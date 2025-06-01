@@ -1,19 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi67dgdaw6skw"]
+[gd_scene load_steps=5 format=3 uid="uid://bi67dgdaw6skw"]
 
 [ext_resource type="Script" uid="uid://bt5vsqema44jt" path="res://Scenes/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://bmocng55xlp5t" path="res://Assets/mage.png" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://dc78ph2lmw5wu" path="res://Assets/mage_2.png" id="2_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://brpi0sghnars0" path="res://Scenes/spell_input.tscn" id="3_6t5aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
-radius = 84.4808
+radius = 93.0054
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3, -5)
-scale = Vector2(14.5625, 13.875)
+position = Vector2(0.999969, -6)
+scale = Vector2(3.63063, 3.45922)
 texture = ExtResource("2_6t5aa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22, -7)
+position = Vector2(-4, -1)
 shape = SubResource("CircleShape2D_vgqql")
+
+[node name="spell input" parent="." instance=ExtResource("3_6t5aa")]
+position = Vector2(-4, 0)
