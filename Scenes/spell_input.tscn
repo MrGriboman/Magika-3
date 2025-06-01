@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brpi0sghnars0"]
+
+[ext_resource type="Script" uid="uid://ddj540km2a6ep" path="res://spell_input.gd" id="1_xsp6a"]
+
+[node name="spell input" type="Node2D"]
+script = ExtResource("1_xsp6a")
