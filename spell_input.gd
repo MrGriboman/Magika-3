@@ -3,6 +3,12 @@ extends Node2D
 var spell_queue = []
 var elem_reg
 
+signal spell_cast(spell_queue)
+
+func _init() -> void:
+	elem_reg = ElementReg.new()
+
+
 func parse_element_name(element: Element) -> String:
 	return element.element_name
 	
@@ -15,7 +21,7 @@ func parse_elem_seq(seq: Array) -> Array:
 
 
 func check_for_opposites(element: Element, seq: Array) -> bool:
-	for i in range(seq.size()):
+	for i in range(seq.size() - 1, -1, -1):
 		if seq[i] in element.opposites:
 			seq.remove_at(i)
 			return true
@@ -25,15 +31,14 @@ func check_for_opposites(element: Element, seq: Array) -> bool:
 func check_for_combos(element: Element, seq: Array) -> bool:
 	if element.combinations == null:
 		return false
-	for i in range(seq.size()):
-		if seq[i].element_name in element.combinations:
-			seq[i] = element.combinations[seq[i].element_name]
-			return true
+	
+	for k in range(2):	
+		for i in range(seq.size() - 1, -1, -1):
+			if seq[i].element_name in element.combinations:
+				if k == 1 or element.combinations[seq[i].element_name] == elem_reg.WATER:
+					seq[i] = element.combinations[seq[i].element_name]
+					return true
 	return false
-
-
-func _init() -> void:
-	elem_reg = ElementReg.new()
 
 
 func _input(event: InputEvent) -> void:
@@ -41,74 +46,19 @@ func _input(event: InputEvent) -> void:
 		print('BOOM!!!')
 		spell_queue.clear()
 		
-	if Input.is_action_just_pressed("conj_fire"):
-		print('fire')
-		var element = elem_reg.FIRE
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
+	if Input.is_action_just_pressed("cast_spell"):
+		print('cast spell')
+		spell_cast.emit(spell_queue)
+		spell_queue.clear()
 		
-	if Input.is_action_just_pressed("conj_water"):
-		print("water")
-		var element = elem_reg.WATER
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_life"):
-		print("life")
-		var element = elem_reg.LIFE
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_shield"):
-		print("shield")
-		var element = elem_reg.SHIELD
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_frost"):
-		print("frost")
-		var element = elem_reg.FROST
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_elec"):
-		print("lightning")
-		var element = elem_reg.LIGHTNING
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_death"):
-		print("death")
-		var element = elem_reg.DEATH
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
-
-	if Input.is_action_just_pressed("conj_rock"):
-		print("rock")
-		var element = elem_reg.ROCK
-		var op = check_for_opposites(element, spell_queue)
-		var comb = check_for_combos(element, spell_queue)
-		if not op and not comb and spell_queue.size() < 5:
-			spell_queue.append(element)
-		print(parse_elem_seq(spell_queue))
+	for action in elem_reg.action_map:
+		if Input.is_action_just_pressed(action):
+			print(elem_reg.action_map[action].element_name)
+			var element = elem_reg.action_map[action]
+			var op = check_for_opposites(element, spell_queue)
+			var comb = check_for_combos(element, spell_queue)
+			if not op and not comb and spell_queue.size() < 5:
+				spell_queue.append(element)
+			print(parse_elem_seq(spell_queue))
+		
+	

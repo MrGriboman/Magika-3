@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://brpi0sghnars0"]
+[gd_scene load_steps=3 format=3 uid="uid://brpi0sghnars0"]
 
 [ext_resource type="Script" uid="uid://ddj540km2a6ep" path="res://spell_input.gd" id="1_xsp6a"]
+[ext_resource type="PackedScene" uid="uid://cl2qrcgtw1v8n" path="res://Scenes/spell_cast.tscn" id="2_gwyqn"]
 
 [node name="spell input" type="Node2D"]
 script = ExtResource("1_xsp6a")
+
+[node name="spell cast" parent="." instance=ExtResource("2_gwyqn")]
+
+[connection signal="spell_cast" from="." to="spell cast" method="_on_spell_input_spell_cast"]

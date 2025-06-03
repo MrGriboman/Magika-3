@@ -5,3 +5,4 @@ var element_name
 var element_dmg
 var opposites
 var combinations
+var type
