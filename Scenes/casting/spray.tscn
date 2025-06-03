@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc28lkd7eci7r"]
+
+[ext_resource type="Script" uid="uid://s5tw2psw6jhm" path="res://Scenes/casting/spray.gd" id="1_aicag"]
+[ext_resource type="Texture2D" uid="uid://bmrdbkye2r63i" path="res://Assets/water_spray.png" id="1_f3cil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aicag"]
+size = Vector2(152, 88)
+
+[node name="spray" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_aicag")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(76.9375, -13.0625)
+scale = Vector2(7.00781, 7.00781)
+texture = ExtResource("1_f3cil")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(80, -4)
+shape = SubResource("RectangleShape2D_aicag")
+one_way_collision_margin = 0.0

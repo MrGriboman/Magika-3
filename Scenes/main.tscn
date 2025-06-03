@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxujeni5xdnc6"]
+[gd_scene load_steps=3 format=3 uid="uid://cxujeni5xdnc6"]
 
+[ext_resource type="PackedScene" uid="uid://bousc8067mrhb" path="res://Scenes/zeliboba.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bi67dgdaw6skw" path="res://Scenes/player.tscn" id="1_jjgbg"]
 
 [node name="main" type="Node2D"]
 
+[node name="Zeliboba" parent="." instance=ExtResource("1_bo1nx")]
+position = Vector2(833, 294)
+scale = Vector2(-1, 1)
+
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+position = Vector2(356, 279)
